@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-quickstart",
+  "name": "nodejs-apachemq-publish-consume",
   "version": "1.0.0",
-  "description": "nodejs quickstart using express and ts support",
+  "description": "Simple example of publisher and subscribers using nodejs",
   "main": "src/server.ts",
   "scripts": {
     "start:dev": "nodemon --exec 'ts-node' src/server.ts -e ts,graphql",
@@ -28,9 +28,12 @@
   },
   "homepage": "https://github.com/DonatasD/nodejs-quickstart#readme",
   "dependencies": {
+    "@stomp/stompjs": "^5.4.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "helmet": "^4.1.0"
+    "helmet": "^4.1.0",
+    "websocket": "^1.0.32",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@tsconfig/node12": "^1.0.7",
@@ -38,6 +41,7 @@
     "@types/compression": "^1.7.0",
     "@types/express": "^4.17.8",
     "@types/mocha": "^8.0.3",
+    "@types/websocket": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "chai": "^4.2.0",

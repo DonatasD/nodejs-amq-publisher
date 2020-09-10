@@ -5,25 +5,39 @@ services:
     build:
       context: .
       dockerfile: app.Dockerfile
-    image: example/app
+    image: nodejs-amq-publisher/app
     container_name: app
     restart: unless-stopped
     networks:
       - app-network
     environment:
       - PORT=3000
+      - AMQ_TOPIC_NAME=/topic/publish
+      - AMQ_BROKER_URL=ws://activemq:61614
+    depends_on:
+      - activemq
 
   nginx:
     build:
       context: .
       dockerfile: nginx.Dockerfile
-    image: example/nginx
+    image: nodejs-amq-publisher/nginx
     container_name: nginx
     restart: unless-stopped
     ports:
-      - '80:80'
+      - '8080:80'
     depends_on:
       - app
+    networks:
+      - app-network
+
+  activemq:
+    image: 'rmohr/activemq:5.15.9-alpine'
+    container_name: activemq
+    restart: unless-stopped
+    ports:
+      - '61614:61614'
+      - '8161:8161'
     networks:
       - app-network
 

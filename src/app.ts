@@ -1,12 +1,14 @@
 import express from 'express';
 import helmet from 'helmet';
 import config from './config/config';
-import {exampleRoutes} from './example';
+import {publisherRoutes} from './publisher';
+import {applyPolyfills} from './utils';
 
+applyPolyfills();
 const app = express();
 app.set('port', config.port);
 app.use(helmet());
 
-app.use(exampleRoutes);
+app.use(publisherRoutes);
 
 export default app;
