@@ -7,8 +7,7 @@ export class PublisherController {
   constructor(private readonly publisherService: PublisherService) {}
 
   @Get('publish')
-  publish(@Req() req: Request, @Res() res: Response): void {
+  publish(): void {
     this.publisherService.publish("Hello world");
-    res.sendStatus(201);
   }
 }

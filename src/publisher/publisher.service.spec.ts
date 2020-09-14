@@ -1,17 +1,27 @@
-import {PublisherClient} from "./publisher.client";
-import {PublisherService} from "./publisher.service";
+import {PublisherService} from './publisher.service';
+import {Test, TestingModule} from '@nestjs/testing';
+import {PublisherController} from './publisher.controller';
+import {ConfigService} from '@nestjs/config';
+import {ClientService} from "./client/client.service";
 
-const mockedPublisherClient = <jest.Mock<PublisherClient>>PublisherClient;
+describe('PublisherService', () => {
+  let publisherService;
+  let publisherController;
 
-describe("PublisherService", () => {
+  beforeEach(async () => {
+    const publisherModule: TestingModule = await Test.createTestingModule({
+      imports: [],
+      controllers: [PublisherController],
+      providers: [PublisherService, ConfigService, ClientService],
+    }).compile();
 
-  beforeEach(() => {
-    mockedPublisherClient.mockClear();
+    publisherService = publisherModule.get(PublisherService);
+    publisherController = publisherModule.get(PublisherController);
   });
 
   it('should call', () => {
-    const MockedService = new PublisherService(new mockedPublisherClient());
-    expect(MockedService).toHaveBeenCalledTimes(1);
-  })
-
-})
+    jest.spyOn(publisherService, 'publish').mockImplementation();
+    publisherController.publish();
+    expect(publisherService.publish).toHaveBeenCalledTimes(1);
+  });
+});
