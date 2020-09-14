@@ -1,0 +1,13 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var helmet_1 = require("helmet");
+var config_1 = require("./config/config");
+var publisher_1 = require("./publisher");
+var utils_1 = require("./utils");
+utils_1.applyPolyfills();
+var app = express_1["default"]();
+app.set('port', config_1["default"].port);
+app.use(helmet_1["default"]());
+app.use(publisher_1.publisherRoutes);
+exports["default"] = app;

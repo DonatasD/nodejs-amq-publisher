@@ -1,12 +1,14 @@
 FROM node:12-alpine AS builder
 
-COPY --chown=node:node ./package*.json ./
+COPY ./package*.json ./
 
 RUN npm install && npm cache clean --force --loglevel=error
 
-COPY tsconfig.json ./
+COPY ./src ./
 
-COPY src ./src/
+COPY tsconfig.build.json ./
+
+COPY tsconfig.json ./
 
 RUN npm run build
 
@@ -26,5 +28,5 @@ USER node
 
 RUN npm prune --production
 
-CMD [ "npm", "start"]
+CMD [ "npm", "run", "start:prod"]
 

@@ -1,1 +1,3 @@
-export {default as publisherRoutes} from './routes';
+
+export * from './publisher.controller';
+export * from './publisher.service';
